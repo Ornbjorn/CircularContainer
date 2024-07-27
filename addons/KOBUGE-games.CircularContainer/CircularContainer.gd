@@ -18,7 +18,15 @@ var _force_expand: bool = false :
 		return _force_expand
 		
 		
-var _start_angle: float = 0
+var _start_angle: float = 0 : #radians
+	set (value):
+		_start_angle = value 
+		_resort()
+	get:
+		return _start_angle
+
+
+
 var _percent_visible: float = 1
 var _appear_at_once: bool = false
 var _allow_node2d: bool = false
@@ -49,15 +57,6 @@ func set_custom_animator(custom_func: Callable) -> void:
 
 func unset_custom_animator() -> void:
 	_custom_animator_func = null
-
-
-func set_start_angle(rad: float) -> void:
-	_start_angle = rad
-	_resort()
-
-
-func get_start_angle() -> float:
-	return _start_angle
 
 
 func set_start_angle_deg(angle: float) -> void:
