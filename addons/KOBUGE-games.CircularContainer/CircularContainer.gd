@@ -3,59 +3,55 @@ class_name CircularContainer
 extends Container
 
 ## Properties ##
-var _force_squares: bool = false :
-	set (value):
-		_force_squares = value 
+var _force_squares: bool = false:
+	set(value):
+		_force_squares = value
 		_resort()
 	get:
 		return _force_squares
-		
-var _force_expand: bool = false :
-	set (value):
-		_force_expand = value 
+
+var _force_expand: bool = false:
+	set(value):
+		_force_expand = value
 		_resort()
 	get:
 		return _force_expand
-		
-		
-var _start_angle: float = 0 : #radians
-	set (value):
-		_start_angle = value 
+
+var _start_angle: float = 0:  #radians
+	set(value):
+		_start_angle = value
 		_resort()
 	get:
 		return _start_angle
 
-
-
-var _percent_visible: float = 1 :
-	set (value):
-		_percent_visible = clamp(value, 0, 1) 
+var _percent_visible: float = 1:
+	set(value):
+		_percent_visible = clamp(value, 0, 1)
 		_resort()
 	get:
 		return _percent_visible
-		
-		
-var _appear_at_once: bool = false :
-	set (value):
-		_appear_at_once = value 
+
+var _appear_at_once: bool = false:
+	set(value):
+		_appear_at_once = value
 		_resort()
 	get:
 		return _appear_at_once
-		
-var _allow_node2d: bool = false :
-	set (value):
-		_allow_node2d = value 
+
+var _allow_node2d: bool = false:
+	set(value):
+		_allow_node2d = value
 		_resort()
 	get:
 		return _allow_node2d
-		
-var _start_empty: bool = false :
-	set (value):
-		_start_empty = value 
+
+var _start_empty: bool = false:
+	set(value):
+		_start_empty = value
 		_resort()
 	get:
 		return _start_empty
-		
+
 @warning_ignore("untyped_declaration")
 var _custom_animator_func = null  # Callable
 
