@@ -35,7 +35,13 @@ var _percent_visible: float = 1 :
 		return _percent_visible
 		
 		
-var _appear_at_once: bool = false
+var _appear_at_once: bool = false :
+	set (value):
+		_appear_at_once = value 
+		_resort()
+	get:
+		return _appear_at_once
+		
 var _allow_node2d: bool = false
 var _start_empty: bool = false
 @warning_ignore("untyped_declaration")
@@ -74,15 +80,6 @@ func set_start_angle_deg(angle: float) -> void:
 func get_start_angle_deg() -> float:
 	return rad_to_deg(_start_angle)
 
-
-
-func set_display_all_at_once(enable: bool) -> void:
-	_appear_at_once = enable
-	_resort()
-
-
-func is_display_all_at_once() -> bool:
-	return _appear_at_once
 
 
 func set_allow_node2d(enable: bool) -> void:
@@ -150,7 +147,7 @@ func _set(property: StringName, value: Variant) -> bool:
 	elif property == "animate/percent_visible":
 		_percent_visible = value
 	elif property == "animate/all_at_once":
-		set_display_all_at_once(value)
+		_appear_at_once = value
 	else:
 		return false
 
