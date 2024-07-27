@@ -1,61 +1,63 @@
-tool
+@tool
+class_name CircularContainer
 extends Container
 
 ## Properties ##
-var _force_squares = false setget _private_set, _private_get
-var _force_expand = false setget _private_set, _private_get
-var _start_angle = 0 setget _private_set, _private_get
-var _percent_visible = 1 setget _private_set, _private_get
-var _appear_at_once = false setget _private_set, _private_get
-var _allow_node2d = false setget _private_set, _private_get
-var _start_empty = false setget _private_set, _private_get
-var _custom_animator_func = null setget _private_set, _private_get
+var _force_squares = false
+var _force_expand = false
+var _start_angle = 0
+var _percent_visible = 1
+var _appear_at_once = false
+var _allow_node2d = false
+var _start_empty = false
+var _custom_animator_func = null
 
 ## Cached variables ##
-var _cached_min_size_key = "" setget _private_set, _private_get
-var _cached_min_size = null setget _private_set, _private_get
-var _cached_min_size_dirty = false setget _private_set, _private_get
+var _cached_min_size_key = ""
+var _cached_min_size = null
+var _cached_min_size_dirty = false
 
 ## Callbacks ##
 
 func _ready():
-	connect("sort_children", self, "_resort")
+	sort_children.connect(_resort)
 	_resort()
 
 ## Properties / Public API ##
 
-func set_custom_animator(object, method): # Params of animator function : node (Control or Node2D), center_pos, target_pos, time (0..1)
-	_custom_animator_func = funcref(object, method)
+func set_custom_animator(custom_func):
+	_custom_animator_func = custom_func
+	
 func unset_custom_animator():
 	_custom_animator_func = null
 
-func set_force_squares(enable):
-	_force_squares = bool(enable)
+func set_force_squares(enable: bool):
+	_force_squares = enable
 	_resort();
 
 func is_force_squares_enabled():
 	return _force_squares
 
-func set_force_expand(enable): 
-	_force_expand = bool(enable)
+func set_force_expand(enable: bool): 
+	_force_expand = enable
 	_resort()
 
 func is_force_expand_enabled():
 	return _force_expand
 
-func set_start_angle(rad):
-	_start_angle = float(rad)
+func set_start_angle(rad: float):
+	_start_angle = rad
 	_resort()
 	
 func get_start_angle():
 	return _start_angle
 
-func set_start_angle_deg(angle):
-	_start_angle = deg2rad(float(angle))
+func set_start_angle_deg(angle: float):
+	_start_angle = deg_to_rad(angle)
 	_resort()
 
 func get_start_angle_deg():
-	return rad2deg(_start_angle)
+	return rad_to_deg(_start_angle)
 
 func set_percent_visible(percent):
 	_percent_visible = clamp(float(percent), 0, 1)
@@ -96,10 +98,10 @@ func _get_property_list():
 		{usage = PROPERTY_USAGE_CATEGORY, type = TYPE_NIL, name = "CircularContainer"},
 		{type = TYPE_BOOL, name = "arrange/force_squares"},
 		{type = TYPE_BOOL, name = "arrange/force_expand"},
-		{type = TYPE_REAL, name = "arrange/start_angle", hint = PROPERTY_HINT_RANGE, hint_string = "-1080,1080,0.01"},
+		{type = TYPE_FLOAT, name = "arrange/start_angle", hint = PROPERTY_HINT_RANGE, hint_string = "-1080,1080,0.01"},
 		{type = TYPE_BOOL, name = "arrange/start_empty"},
 		{type = TYPE_BOOL, name = "arrange/allow_node2d"},
-		{type = TYPE_REAL, name = "animate/percent_visible", hint = PROPERTY_HINT_RANGE, hint_string = "0,1,0.01"},
+		{type = TYPE_FLOAT, name = "animate/percent_visible", hint = PROPERTY_HINT_RANGE, hint_string = "0,1,0.01"},
 		{type = TYPE_BOOL, name = "animate/all_at_once"}
 	]
 
@@ -119,7 +121,7 @@ func _set(property, value):
 func _get(property):
 	if property == "arrange/force_squares": return _force_squares
 	if property == "arrange/force_expand": return _force_expand
-	elif property == "arrange/start_angle": return rad2deg(_start_angle)
+	elif property == "arrange/start_angle": return rad_to_deg(_start_angle)
 	elif property == "arrange/start_empty": return _start_empty
 	elif property == "arrange/allow_node2d": return _allow_node2d
 	elif property == "animate/percent_visible": return _percent_visible
@@ -240,9 +242,9 @@ func _update_cached_min_size():
 
 func _default_animator(node, container_center, target_pos, time):
 	if node is Control:
-		node.set_position(container_center.linear_interpolate(target_pos - node.get_size() / 2 * time, time))
+		node.set_position(container_center.lerp(target_pos - node.get_size() / 2 * time, time))
 	else:
-		node.set_position(container_center.linear_interpolate(target_pos, time))
+		node.set_position(container_center.lerp(target_pos, time))
 	#node.set_opacity(time)
 	if time == 0:
 		node.set_scale(Vector2(0.01,0.01))
@@ -266,7 +268,7 @@ func _get_filtered_children():
 			keep = false
 		
 		if !keep:
-			children.remove(i)
+			children.remove_at(i)
 	return children
 
 func _get_child_min_size(child):
@@ -295,11 +297,3 @@ func _get_max_angle_for_diagonal(diagonal, radius):
 		return PI
 	else:
 		return asin(fit_length / radius) * 2
-
-func _private_set(value = null):
-	print("Invalid access to private variable!")
-	return value
-
-func _private_get(value = null):
-	print("Invalid access to private variable!")
-	return value
