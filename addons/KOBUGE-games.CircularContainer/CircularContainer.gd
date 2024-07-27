@@ -42,7 +42,13 @@ var _appear_at_once: bool = false :
 	get:
 		return _appear_at_once
 		
-var _allow_node2d: bool = false
+var _allow_node2d: bool = false :
+	set (value):
+		_allow_node2d = value 
+		_resort()
+	get:
+		return _allow_node2d
+		
 var _start_empty: bool = false
 @warning_ignore("untyped_declaration")
 var _custom_animator_func = null  # Callable
@@ -79,16 +85,6 @@ func set_start_angle_deg(angle: float) -> void:
 
 func get_start_angle_deg() -> float:
 	return rad_to_deg(_start_angle)
-
-
-
-func set_allow_node2d(enable: bool) -> void:
-	_allow_node2d = enable
-	_resort()
-
-
-func is_allowing_node2d() -> bool:
-	return _allow_node2d
 
 
 func set_start_empty(enable: bool) -> void:
@@ -143,7 +139,7 @@ func _set(property: StringName, value: Variant) -> bool:
 	elif property == "arrange/start_empty":
 		set_start_empty(value)
 	elif property == "arrange/allow_node2d":
-		set_allow_node2d(value)
+		_allow_node2d = value
 	elif property == "animate/percent_visible":
 		_percent_visible = value
 	elif property == "animate/all_at_once":
