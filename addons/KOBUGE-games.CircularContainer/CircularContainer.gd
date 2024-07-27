@@ -3,7 +3,13 @@ class_name CircularContainer
 extends Container
 
 ## Properties ##
-var _force_squares: bool = false
+var _force_squares: bool = false :
+	set (value):
+		_force_squares = value 
+		_resort()
+	get:
+		return _force_squares
+		
 var _force_expand: bool = false
 var _start_angle: float = 0
 var _percent_visible: float = 1
@@ -36,15 +42,6 @@ func set_custom_animator(custom_func: Callable) -> void:
 
 func unset_custom_animator() -> void:
 	_custom_animator_func = null
-
-
-func set_force_squares(enable: bool) -> void:
-	_force_squares = enable
-	_resort()
-
-
-func is_force_squares_enabled() -> bool:
-	return _force_squares
 
 
 func set_force_expand(enable: bool) -> void:
@@ -145,7 +142,7 @@ func _get_property_list() -> Array:
 
 func _set(property: StringName, value: Variant) -> bool:
 	if property == "arrange/force_squares":
-		set_force_squares(value)
+		_force_squares = value
 	if property == "arrange/force_expand":
 		set_force_expand(value)
 	elif property == "arrange/start_angle":
