@@ -10,7 +10,14 @@ var _force_squares: bool = false :
 	get:
 		return _force_squares
 		
-var _force_expand: bool = false
+var _force_expand: bool = false :
+	set (value):
+		_force_expand = value 
+		_resort()
+	get:
+		return _force_expand
+		
+		
 var _start_angle: float = 0
 var _percent_visible: float = 1
 var _appear_at_once: bool = false
@@ -42,15 +49,6 @@ func set_custom_animator(custom_func: Callable) -> void:
 
 func unset_custom_animator() -> void:
 	_custom_animator_func = null
-
-
-func set_force_expand(enable: bool) -> void:
-	_force_expand = enable
-	_resort()
-
-
-func is_force_expand_enabled() -> bool:
-	return _force_expand
 
 
 func set_start_angle(rad: float) -> void:
@@ -144,7 +142,7 @@ func _set(property: StringName, value: Variant) -> bool:
 	if property == "arrange/force_squares":
 		_force_squares = value
 	if property == "arrange/force_expand":
-		set_force_expand(value)
+		_force_expand = value
 	elif property == "arrange/start_angle":
 		set_start_angle_deg(value)
 	elif property == "arrange/start_empty":
