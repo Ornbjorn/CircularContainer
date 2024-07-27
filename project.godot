@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-run/main_scene="res://addons/KOBUGE-games.CircularContainer/examples/basic.tscn"
+run/main_scene="res://examples/basic.tscn"
 config/features=PackedStringArray("4.2")
 
 [editor_plugins]

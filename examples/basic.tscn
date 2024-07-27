@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcd5gy71i42c3"]
 
-[ext_resource type="Script" path="res://addons/KOBUGE-games.CircularContainer/CircularContainer.gd" id="1"]
+[ext_resource type="Script" path="res://addons/circular_container/CircularContainer.gd" id="1"]
 
 [sub_resource type="Animation" id="1"]
 tracks/0/type = "value"
@@ -38,6 +38,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -58,6 +60,13 @@ size_flags_horizontal = 3
 [node name="CircularContainer" type="Container" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 script = ExtResource("1")
+arrange/force_squares = false
+arrange/force_expand = false
+arrange/start_angle = 0.0
+arrange/start_empty = false
+arrange/allow_node2d = false
+animate/percent_visible = 1.0
+animate/all_at_once = false
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/CircularContainer"]
 layout_mode = 2
