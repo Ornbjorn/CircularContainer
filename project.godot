@@ -15,4 +15,4 @@ config/features=PackedStringArray("4.2")
 
 [editor_plugins]
 
-enabled=PackedStringArray("KOBUGE-games.CircularContainer")
+enabled=PackedStringArray("res://addons/circular_container/plugin.cfg")

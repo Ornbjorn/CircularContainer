@@ -1,3 +1,2 @@
-res://addons/KOBUGE-games.CircularContainer/examples/basic.tscn
 res://examples/basic.tscn
-res://addons/circular_container/CircularContainer.gd
+res://addons/circular_container/register.gd
