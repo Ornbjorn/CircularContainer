@@ -27,7 +27,14 @@ var _start_angle: float = 0 : #radians
 
 
 
-var _percent_visible: float = 1
+var _percent_visible: float = 1 :
+	set (value):
+		_percent_visible = clamp(value, 0, 1) 
+		_resort()
+	get:
+		return _percent_visible
+		
+		
 var _appear_at_once: bool = false
 var _allow_node2d: bool = false
 var _start_empty: bool = false
@@ -67,14 +74,6 @@ func set_start_angle_deg(angle: float) -> void:
 func get_start_angle_deg() -> float:
 	return rad_to_deg(_start_angle)
 
-
-func set_percent_visible(percent: float) -> void:
-	_percent_visible = clamp(percent, 0, 1)
-	_resort()
-
-
-func get_percent_visible() -> bool:
-	return _percent_visible
 
 
 func set_display_all_at_once(enable: bool) -> void:
@@ -149,7 +148,7 @@ func _set(property: StringName, value: Variant) -> bool:
 	elif property == "arrange/allow_node2d":
 		set_allow_node2d(value)
 	elif property == "animate/percent_visible":
-		set_percent_visible(value)
+		_percent_visible = value
 	elif property == "animate/all_at_once":
 		set_display_all_at_once(value)
 	else:
